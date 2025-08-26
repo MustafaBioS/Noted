@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Note</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+
+    <form class="newnote" action="{{ url_for('view', id=note.id) }}" method="post">
+        <input class="submit sub" name="submit" type="submit" value="Edit Note">
+        <div class="con">
+            <input class="title" name="newtitle" type="text" placeholder="Title" maxlength="64" value="{{ note.title }}" required> 
+            <textarea class="content" name="newcontent" placeholder="Type Your Note Here" required wrap="soft">{{ note.content }}</textarea>
+        </div>
+    </form>
+    <button class="submit home" id="btn">View Notes</button>
+    <button class="submit del" id="del">Delete Note</button>
+
+    <script >
+
+    const button = document.getElementById('btn');
+    const del = document.querySelector('.del');
+
+    button.addEventListener('click', () => {
+        window.location.href = "{{ url_for('main') }}"
+        console.log('working')
+    })
+
+    del.addEventListener('click', () => {
+        window.location.href = "{{ url_for('delete', id=note.id) }}"
+    })
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noted</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+                        <h1 class="{{ category }}">{{ message }}</h1>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+
+
+<form class="createCon" action="{{ url_for('create') }}" method="get">
+    <button class="create">New Note</button>
+</form>
+
+<form method="get" class="menuCon" action="{{ url_for('main') }}">
+    <select name="sort" class="menu" onchange="this.form.submit()">
+        <option value="" disabled selected hidden>Sort By:</option>
+        <option value="1" {% if sort == '1'%}selected{% endif %}>Oldest</option>
+        <option value="2" {% if sort == '2'%}selected{% endif %}>Title A-Z</option>
+        <option value="3" {% if sort == '3'%}selected{% endif %}>Title Z-A</option>
+        <option value="4" {% if sort == '4'%}selected{% endif %}>Newest</option>
+    </select>
+</form>
+{% if notes %}
+    <div class="notes"> 
+        {% for note in notes %}
+        <div class="noteBG" onclick="window.location.href=`{{ url_for('view', id=note.id) }}`">
+            <h1 class="noteTitle">{{ note.title }}</h1>
+            <p class="noteContent">{{ note.content }}</p>
+        </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="notes"> </div>
+{% endif %}
+
+<script>
+
+    const notes = document.querySelector('.notes');
+    const noteBG = document.querySelector('.noteBG');
+    const menu = document.querySelector('.menu')
+
+    if (notes.innerHTML === " ") {
+        notes.classList.add('center');
+        notes.innerHTML = "<h1 class='none'> No Notes Available </h1>";
+    }
+
+
+
+</script>
+</body>
+</html>

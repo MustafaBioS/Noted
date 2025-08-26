@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Note</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+</head>
+<body>
+
+    <form class="newnote" action="{{ url_for('create') }}" method="post">
+        <input class="submit sub" name="submit" type="submit" value="Create Note">
+        <div class="con">
+            <input class="title" name="title" type="text" placeholder="Title" maxlength="64" required> 
+            <textarea class="content" name="content" placeholder="Type Your Note Here" required wrap="soft"></textarea>
+        </div>
+    </form>
+    <button class="submit home" id="btn">View Notes</button>
+
+    <script >
+
+    const button = document.getElementById('btn');
+    
+
+    button.addEventListener('click', () => {
+        window.location.href = "{{ url_for('main') }}"
+        console.log('working')
+    })
+
+    </script>
+</body>
+</html>
